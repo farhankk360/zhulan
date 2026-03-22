@@ -34,7 +34,7 @@ function CuratedPanel({ structure }: { structure: Structure }) {
     <>
       {structure.image && (
         <img
-          src={structure.image}
+          src={`${(import.meta as ImportMeta & { env: Record<string, string> }).env.BASE_URL}${structure.image.replace(/^\//, '')}`}
           alt={structure.name}
           className="w-full h-40 object-cover rounded-lg mb-4"
           onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}

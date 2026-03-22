@@ -243,7 +243,7 @@ async function main() {
       const description = b['itemDescription']?.value ?? ''
       const coordRaw = b['coord']?.value ?? ''
       const inceptionRaw = b['inception']?.value ?? ''
-      const imageUrl = b['image']?.value
+      const imageUrl = b['image']?.value?.replace(/^http:\/\//, 'https://')
       const instanceLabel = b['instanceLabel']?.value ?? ''
       const articleUrl = b['article']?.value
 
