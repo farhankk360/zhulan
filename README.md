@@ -2,7 +2,7 @@
 
 An interactive web application for exploring China's pre-1911 architectural heritage. Built for the **2026 (19th) Chinese Collegiate Computing Competition (4C)**, Category 6: AI + Information Visualization Design.
 
-**Live demo:** https://[your-github-username].github.io/zhulan/
+**Live demo:** https://farhankk360.github.io/zhulan/
 
 ---
 
@@ -45,7 +45,7 @@ An interactive web application for exploring China's pre-1911 architectural heri
 
 ### Install
 ```bash
-git clone https://github.com/[your-github-username]/zhulan.git
+git clone https://github.com/farhankk360/zhulan.git
 cd zhulan
 npm install
 ```
