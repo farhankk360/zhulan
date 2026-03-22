@@ -1,0 +1,17 @@
+[
+  { "name": "Xia",        "nameChinese": "夏",   "start": -2070, "end": -1600, "color": "#6B7280" },
+  { "name": "Shang",      "nameChinese": "商",   "start": -1600, "end": -1046, "color": "#6B7280" },
+  { "name": "Zhou",       "nameChinese": "周",   "start": -1046, "end": -256,  "color": "#78716C" },
+  { "name": "Qin",        "nameChinese": "秦",   "start": -221,  "end": -206,  "color": "#B45309" },
+  { "name": "Han",        "nameChinese": "汉",   "start": -206,  "end": 220,   "color": "#92400E" },
+  { "name": "Three Kingdoms", "nameChinese": "三国", "start": 220, "end": 280, "color": "#78350F" },
+  { "name": "Jin",        "nameChinese": "晋",   "start": 265,   "end": 420,   "color": "#7C3AED" },
+  { "name": "Northern and Southern", "nameChinese": "南北朝", "start": 420, "end": 589, "color": "#6D28D9" },
+  { "name": "Sui",        "nameChinese": "隋",   "start": 581,   "end": 618,   "color": "#0D9488" },
+  { "name": "Tang",       "nameChinese": "唐",   "start": 618,   "end": 907,   "color": "#0F766E" },
+  { "name": "Five Dynasties", "nameChinese": "五代", "start": 907, "end": 960, "color": "#115E59" },
+  { "name": "Song",       "nameChinese": "宋",   "start": 960,   "end": 1279,  "color": "#1D4ED8" },
+  { "name": "Yuan",       "nameChinese": "元",   "start": 1271,  "end": 1368,  "color": "#1E40AF" },
+  { "name": "Ming",       "nameChinese": "明",   "start": 1368,  "end": 1644,  "color": "#DC2626" },
+  { "name": "Qing",       "nameChinese": "清",   "start": 1644,  "end": 1912,  "color": "#9333EA" }
+]

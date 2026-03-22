@@ -1,0 +1,172 @@
+[
+  {
+    "id": "forbidden-city",
+    "name": "Forbidden City",
+    "nameChinese": "紫禁城",
+    "type": "palace",
+    "dynasty": "Ming",
+    "yearBuilt": 1406,
+    "yearCompleted": 1420,
+    "coordinates": [39.9163, 116.3972],
+    "province": "Beijing",
+    "city": "Beijing",
+    "status": "complete",
+    "significance": "national",
+    "source": "curated",
+    "description": "The imperial palace of the Ming and Qing dynasties, serving as the home of emperors and their households for nearly 500 years. At 720,000 square metres it is one of the largest palace complexes in the world.",
+    "descriptionChinese": "明清两朝的皇宫，是中国古代宫廷建筑的杰出代表，占地面积约72万平方米。",
+    "architect": "Cai Xin (蔡信)",
+    "keyFeatures": [
+      "9,999 rooms (symbolic near-10,000)",
+      "Strict north-south axial symmetry",
+      "Yellow glazed roof tiles reserved for imperial use",
+      "Moat and 10-metre walls for defence"
+    ],
+    "architecturalStyle": "Chinese imperial palatial",
+    "materials": ["wood", "stone", "glazed tile"],
+    "image": "/images/forbidden-city.jpg",
+    "imageCredit": "Generated with Tongyi AI",
+    "sources": [
+      "Palace Museum official records",
+      "《故宫建筑》- Palace Museum Publishing"
+    ],
+    "aiToolsUsed": ["DeepSeek", "Kimi"],
+    "tags": ["UNESCO", "imperial", "Ming", "Qing", "Beijing axis"]
+  },
+  {
+    "id": "summer-palace",
+    "name": "Summer Palace",
+    "nameChinese": "颐和园",
+    "type": "palace",
+    "dynasty": "Qing",
+    "yearBuilt": 1750,
+    "yearCompleted": 1764,
+    "coordinates": [39.9997, 116.2755],
+    "province": "Beijing",
+    "city": "Beijing",
+    "status": "complete",
+    "significance": "national",
+    "source": "curated",
+    "description": "An imperial garden and palace complex built around Kunming Lake, featuring the iconic Long Corridor and Marble Boat. Considered the pinnacle of classical Chinese garden design.",
+    "descriptionChinese": "以昆明湖和万寿山为基础的皇家园林，是中国古典园林艺术的集大成之作。",
+    "architect": "Commissioned by Emperor Qianlong",
+    "keyFeatures": [
+      "728-metre Long Corridor with 14,000 paintings",
+      "Marble Boat (石舫)",
+      "Seventeen-Arch Bridge",
+      "Kunming Lake covering 75% of the park area"
+    ],
+    "architecturalStyle": "Classical Chinese garden",
+    "materials": ["stone", "wood", "marble"],
+    "image": "/images/summer-palace.jpg",
+    "imageCredit": "Generated with Tongyi AI",
+    "sources": [
+      "UNESCO World Heritage nomination file",
+      "《颐和园志》"
+    ],
+    "aiToolsUsed": ["DeepSeek", "Tongyi"],
+    "tags": ["UNESCO", "imperial garden", "Qing", "lake"]
+  },
+  {
+    "id": "zhaozhou-bridge",
+    "name": "Zhaozhou Bridge",
+    "nameChinese": "赵州桥",
+    "type": "bridge",
+    "dynasty": "Sui",
+    "yearBuilt": 595,
+    "yearCompleted": 605,
+    "coordinates": [37.8867, 114.8939],
+    "province": "Hebei",
+    "city": "Zhao County",
+    "status": "complete",
+    "significance": "national",
+    "source": "curated",
+    "description": "The world's oldest open-spandrel stone segmental arch bridge, still standing after 1,400 years. Its innovative design reduced the weight of the bridge and allowed floodwater to pass through the spandrel openings.",
+    "descriptionChinese": "世界上现存最古老、保存最完整的大型石拱桥，由隋朝工匠李春设计建造。",
+    "architect": "Li Chun (李春)",
+    "keyFeatures": [
+      "Single main arch spanning 37.37 metres",
+      "Four small relief arches in the spandrels",
+      "Reduces weight by approximately 15,300 tonnes",
+      "Still functional after 1,400 years"
+    ],
+    "architecturalStyle": "Segmental arch bridge",
+    "materials": ["limestone"],
+    "image": "/images/zhaozhou-bridge.jpg",
+    "imageCredit": "Generated with Tongyi AI",
+    "sources": [
+      "Li Chun historical records",
+      "《中国古桥技术史》"
+    ],
+    "aiToolsUsed": ["DeepSeek", "Kimi"],
+    "tags": ["engineering", "Sui dynasty", "bridge", "Li Chun", "oldest"]
+  },
+  {
+    "id": "wang-family-compound",
+    "name": "Wang Family Compound",
+    "nameChinese": "王家大院",
+    "type": "residence",
+    "dynasty": "Qing",
+    "yearBuilt": 1739,
+    "yearCompleted": 1793,
+    "coordinates": [36.5631, 111.5714],
+    "province": "Shanxi",
+    "city": "Lingshi County",
+    "status": "complete",
+    "significance": "national",
+    "source": "curated",
+    "description": "One of the largest private residential compounds in China, built by the Wang merchant family over multiple generations. Features over 230 courtyards and 2,078 rooms arranged in the pattern of the Chinese character '王' (Wang).",
+    "descriptionChinese": "晋商文化的代表性建筑，由王氏家族历经数代建造，是中国最大的民居建筑群之一。",
+    "architect": "Wang clan artisans",
+    "keyFeatures": [
+      "123,000 square metres total area",
+      "230 courtyards, 2,078 rooms",
+      "Layout forms the character '王'",
+      "Rich stone, brick, and wood carvings"
+    ],
+    "architecturalStyle": "Shanxi courtyard residence (晋派民居)",
+    "materials": ["brick", "stone", "wood"],
+    "image": "/images/wang-compound.jpg",
+    "imageCredit": "Generated with Tongyi AI",
+    "sources": [
+      "Shanxi Provincial Cultural Heritage Bureau records",
+      "《王家大院建筑艺术》"
+    ],
+    "aiToolsUsed": ["DeepSeek"],
+    "tags": ["Shanxi merchant", "courtyard", "residence", "Qing"]
+  },
+  {
+    "id": "nanyang-yamen",
+    "name": "Nanyang Government Office",
+    "nameChinese": "南阳府衙",
+    "type": "government",
+    "dynasty": "Yuan",
+    "yearBuilt": 1271,
+    "yearCompleted": null,
+    "coordinates": [32.9987, 112.5292],
+    "province": "Henan",
+    "city": "Nanyang",
+    "status": "complete",
+    "significance": "regional",
+    "source": "curated",
+    "description": "One of the best-preserved ancient government offices (衙门) in China. Originally built in the Yuan dynasty and extensively renovated during the Ming and Qing periods. The complex follows strict hierarchical spatial arrangement prescribed by imperial codes.",
+    "descriptionChinese": "中国保存最完整的古代衙门建筑之一，始建于元代，明清时期多次修缮，体现了封建官府建筑的等级制度和空间布局特征。",
+    "architect": "Unknown imperial architects",
+    "keyFeatures": [
+      "Strict axial symmetry along north-south axis",
+      "Six courtyards of increasing privacy",
+      "Drum and bell towers at entrance",
+      "Distinct public and private zones"
+    ],
+    "architecturalStyle": "Imperial administrative (官式建筑)",
+    "materials": ["brick", "wood", "stone"],
+    "image": "/images/nanyang-yamen.jpg",
+    "imageCredit": "Generated with Tongyi AI",
+    "sources": [
+      "Henan Provincial Museum records",
+      "《中国衙署建筑》"
+    ],
+    "aiToolsUsed": ["DeepSeek", "Kimi"],
+    "tags": ["government", "yamen", "Yuan", "Ming", "Henan", "administrative"]
+  }
+]
