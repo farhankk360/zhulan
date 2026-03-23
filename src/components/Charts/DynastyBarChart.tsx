@@ -2,6 +2,7 @@ import { useRef, useEffect } from 'react'
 import * as d3 from 'd3'
 import { Structure } from '../../types'
 import { getAllDynasties } from '../../utils/dynastyUtils'
+import { useLanguage } from '../../hooks/useLanguage'
 
 interface Props {
   structures: Structure[]
@@ -9,6 +10,7 @@ interface Props {
 
 export default function DynastyBarChart({ structures }: Props) {
   const svgRef = useRef<SVGSVGElement>(null)
+  const { lang } = useLanguage()
 
   useEffect(() => {
     if (!svgRef.current) return
@@ -63,7 +65,7 @@ export default function DynastyBarChart({ structures }: Props) {
       .attr('text-anchor', 'end')
       .attr('fill', '#D6D3D1')
       .attr('font-size', 12)
-      .text(d => `${d.nameChinese} ${d.name}`)
+      .text(d => lang === 'zh' ? d.nameChinese : d.name)
 
     g.selectAll('.count-label')
       .data(data)
@@ -75,7 +77,7 @@ export default function DynastyBarChart({ structures }: Props) {
       .attr('fill', '#78716C')
       .attr('font-size', 11)
       .text(d => d.count)
-  }, [structures])
+  }, [structures, lang])
 
   return <svg ref={svgRef} />
 }

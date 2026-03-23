@@ -47,6 +47,19 @@
       "Ming",
       "Qing",
       "Beijing axis"
+    ],
+    "architectChinese": "蔡信",
+    "architecturalStyleChinese": "中国皇家宫殿",
+    "keyFeaturesChinese": [
+      "9999间房间（象征接近10000间）",
+      "严格的南北轴线对称",
+      "黄色釉面屋顶瓦片专供皇室使用",
+      "护城河和10米高的城墙用于防御"
+    ],
+    "materialsChinese": [
+      "木头",
+      "石头",
+      "釉面瓦"
     ]
   },
   {
@@ -96,6 +109,19 @@
       "imperial garden",
       "Qing",
       "lake"
+    ],
+    "architectChinese": "由乾隆皇帝下令建造",
+    "architecturalStyleChinese": "古典中国园林",
+    "keyFeaturesChinese": [
+      "728米长的长廊，有14000幅绘画",
+      "石船",
+      "十七孔桥",
+      "昆明湖占公园面积的75%"
+    ],
+    "materialsChinese": [
+      "石头",
+      "木头",
+      "大理石"
     ]
   },
   {
@@ -144,6 +170,17 @@
       "bridge",
       "Li Chun",
       "oldest"
+    ],
+    "architectChinese": "李春",
+    "architecturalStyleChinese": "分段拱桥",
+    "keyFeaturesChinese": [
+      "单个主拱跨度37.37米",
+      "拱肩上有四个小型浮雕拱",
+      "减轻重量约15300吨",
+      "历经1400年仍可使用"
+    ],
+    "materialsChinese": [
+      "石灰岩"
     ]
   },
   {
@@ -192,6 +229,19 @@
       "courtyard",
       "residence",
       "Qing"
+    ],
+    "architectChinese": "王氏工匠",
+    "architecturalStyleChinese": "晋派民居",
+    "keyFeaturesChinese": [
+      "总建筑面积123000平方米",
+      "230个庭院，2078间房间",
+      "布局形成汉字'王'",
+      "丰富的石、砖、木雕刻"
+    ],
+    "materialsChinese": [
+      "砖",
+      "石",
+      "木"
     ]
   },
   {
@@ -266,7 +316,7 @@
     "wikimediaImage": "https://commons.wikimedia.org/wiki/Special:FilePath/HK%20Government%20House%202005.jpg",
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Government_House,_Hong_Kong",
     "description": "official residence of the Chief Executive of Hong Kong",
-    "descriptionChinese": "",
+    "descriptionChinese": "香港特别行政区行政长官官邸",
     "tags": []
   },
   {
@@ -290,7 +340,7 @@
     "wikimediaImage": "https://commons.wikimedia.org/wiki/Special:FilePath/Anji%20Bridge%2C%20Zhao%20County%2C%202020-09-06%2005.jpg",
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Anji_Bridge",
     "description": "open-spandrel arch bridge in Hebei Province, China",
-    "descriptionChinese": "",
+    "descriptionChinese": "河北省的敞肩拱桥",
     "tags": []
   },
   {
@@ -314,7 +364,7 @@
     "wikimediaImage": "https://commons.wikimedia.org/wiki/Special:FilePath/Mukden%20Palace%20drone%20view%205%20%28cropped%20%26%20rotated%29.jpg",
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Mukden_Palace",
     "description": "former imperial palace of the early Manchu-led Qing dynasty.",
-    "descriptionChinese": "",
+    "descriptionChinese": "清朝早期满族统治者的皇宫",
     "tags": []
   },
   {
@@ -338,7 +388,7 @@
     "wikimediaImage": "https://commons.wikimedia.org/wiki/Special:FilePath/Zhongshan-Br%C3%BCcke-05.JPG",
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Zhongshan_Bridge",
     "description": "steel bridge",
-    "descriptionChinese": "",
+    "descriptionChinese": "钢桥",
     "tags": []
   },
   {
@@ -362,7 +412,7 @@
     "wikimediaImage": "https://commons.wikimedia.org/wiki/Special:FilePath/Waibaidu%20Bridge%20Shanghai.jpg",
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Waibaidu_Bridge",
     "description": "bridge in Shanghai, China",
-    "descriptionChinese": "",
+    "descriptionChinese": "中国上海的桥梁",
     "tags": []
   },
   {
@@ -386,7 +436,7 @@
     "wikimediaImage": "https://commons.wikimedia.org/wiki/Special:FilePath/%E7%89%B9%E9%A6%96%E8%BE%A6.jpg",
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Macau_Government_Headquarters",
     "description": "building in Macau Government Headquarters, China",
-    "descriptionChinese": "",
+    "descriptionChinese": "中国澳门政府总部内的建筑",
     "tags": []
   },
   {
@@ -410,7 +460,7 @@
     "wikimediaImage": "https://commons.wikimedia.org/wiki/Special:FilePath/Mandarin%27s%20House%2C%202023%20%2806%29.jpg",
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Mandarin%27s_House",
     "description": "building in Macau",
-    "descriptionChinese": "",
+    "descriptionChinese": "中国澳门的建筑",
     "tags": []
   },
   {
@@ -432,7 +482,7 @@
     "source": "wikidata",
     "wikidataId": "Q10038732",
     "description": "Chinese palace",
-    "descriptionChinese": "",
+    "descriptionChinese": "中国宫殿",
     "tags": []
   }
 ]

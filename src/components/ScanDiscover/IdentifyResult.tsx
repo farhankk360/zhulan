@@ -30,7 +30,7 @@ const TYPE_KEY: Record<StructureType, TranslationKey> = {
 }
 
 export default function IdentifyResult({ result, userPhoto, onViewOnMap, onClose, onRetry }: Props) {
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
 
   return (
     <div className="fixed inset-0 z-[2000] flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-sm p-0 sm:p-4">
@@ -51,8 +51,9 @@ export default function IdentifyResult({ result, userPhoto, onViewOnMap, onClose
               {/* Name + confidence */}
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <h3 className="text-xl font-bold text-stone-100">{result.name}</h3>
-                  <p className="text-stone-400 font-chinese text-lg">{result.nameChinese}</p>
+                  <h3 className={`text-xl font-bold text-stone-100 ${lang === 'zh' ? 'font-chinese' : ''}`}>
+                    {lang === 'zh' ? result.nameChinese : result.name}
+                  </h3>
                 </div>
                 <span className={`text-xs font-medium px-2 py-1 rounded-full whitespace-nowrap ${CONFIDENCE_STYLE[result.confidence]}`}>
                   {t(CONFIDENCE_KEY[result.confidence])}
@@ -65,21 +66,23 @@ export default function IdentifyResult({ result, userPhoto, onViewOnMap, onClose
                   {t(TYPE_KEY[result.type])}
                 </span>
                 <span className="bg-stone-800 text-stone-300 px-2.5 py-1 rounded-full">
-                  🏛 {result.dynasty}{t('result.dynastySuffix')}
+                  🏛 {lang === 'zh' ? result.dynastyChinese : result.dynasty}{t('result.dynastySuffix')}
                 </span>
                 <span className="bg-stone-800 text-stone-300 px-2.5 py-1 rounded-full">
                   📅 ~{result.estimatedYear}
                 </span>
                 {result.province && (
                   <span className="bg-stone-800 text-stone-300 px-2.5 py-1 rounded-full">
-                    📍 {result.province}
+                    📍 {lang === 'zh' ? result.provinceChinese : result.province}
                   </span>
                 )}
               </div>
 
               {/* Significance */}
               {result.significance && (
-                <p className="text-stone-300 text-sm leading-relaxed">{result.significance}</p>
+                <p className="text-stone-300 text-sm leading-relaxed">
+                  {lang === 'zh' ? result.significanceChinese : result.significance}
+                </p>
               )}
 
               {/* Historical facts */}
@@ -87,8 +90,8 @@ export default function IdentifyResult({ result, userPhoto, onViewOnMap, onClose
                 <div>
                   <h4 className="text-xs uppercase tracking-wide text-stone-500 mb-2">{t('result.historicalFacts')}</h4>
                   <ul className="space-y-1.5">
-                    {result.historicalFacts.map((fact, i) => (
-                      <li key={i} className="flex gap-2 text-sm text-stone-300">
+                    {(lang === 'zh' ? result.historicalFactsChinese : result.historicalFacts).map((fact, i) => (
+                      <li key={i} className={`flex gap-2 text-sm text-stone-300 ${lang === 'zh' ? 'font-chinese' : ''}`}>
                         <span className="text-red-500 shrink-0">▪</span>
                         {fact}
                       </li>
@@ -109,9 +112,13 @@ export default function IdentifyResult({ result, userPhoto, onViewOnMap, onClose
               <div className="text-center py-4 space-y-2">
                 <p className="text-4xl">🤔</p>
                 <p className="text-stone-200 font-medium">{t('result.notFoundMsg')}</p>
-                <p className="text-stone-400 text-sm">{result.reason}</p>
+                <p className="text-stone-400 text-sm">
+                  {lang === 'zh' ? result.reasonChinese : result.reason}
+                </p>
                 {result.suggestion && (
-                  <p className="text-stone-500 text-xs mt-2 bg-stone-800 rounded-lg px-3 py-2">{result.suggestion}</p>
+                  <p className="text-stone-500 text-xs mt-2 bg-stone-800 rounded-lg px-3 py-2">
+                    {lang === 'zh' ? result.suggestionChinese : result.suggestion}
+                  </p>
                 )}
               </div>
               <button

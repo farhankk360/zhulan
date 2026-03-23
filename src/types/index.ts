@@ -9,6 +9,7 @@ export interface Structure {
   nameChinese: string
   type: StructureType
   dynasty: string
+  dynastyChinese?: string
   yearBuilt: number
   yearCompleted: number | null
   coordinates: [number, number]
@@ -23,9 +24,13 @@ export interface Structure {
   description?: string
   descriptionChinese?: string
   architect?: string
+  architectChinese?: string
   keyFeatures?: string[]
+  keyFeaturesChinese?: string[]
   architecturalStyle?: string
+  architecturalStyleChinese?: string
   materials?: string[]
+  materialsChinese?: string[]
   image?: string
   imageCredit?: string
   sources?: string[]
@@ -52,20 +57,26 @@ export interface IdentifySuccess {
   nameChinese: string
   type: StructureType
   dynasty: string
+  dynastyChinese: string
   estimatedYear: number
   coordinates: [number, number]
   province: string
+  provinceChinese: string
   city: string
   historicalFacts: string[]
   historicalFactsChinese: string[]
   architecturalStyle: string
+  architecturalStyleChinese: string
   significance: string
+  significanceChinese: string
 }
 
 export interface IdentifyFailure {
   identified: false
   reason: string
+  reasonChinese: string
   suggestion: string
+  suggestionChinese: string
 }
 
 export type IdentifyResponse = IdentifySuccess | IdentifyFailure

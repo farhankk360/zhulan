@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "typecheck": "tsc --noEmit",
-    "fetch-data": "tsx scripts/fetch-wikidata.ts",
+    "fetch-data": "tsx --env-file .env scripts/fetch-wikidata.ts",
     "prebuild": "npm run fetch-data && npm run lint && npm run typecheck",
     "deploy": "npm run build && gh-pages -d dist"
   },

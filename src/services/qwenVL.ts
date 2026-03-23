@@ -14,21 +14,27 @@ If you can identify the structure, respond with:
   "nameChinese": "中文名",
   "type": "palace" | "bridge" | "residence" | "government",
   "dynasty": "Dynasty name in English",
+  "dynastyChinese": "朝代名称（中文）",
   "estimatedYear": 1420,
   "coordinates": [latitude, longitude],
-  "province": "Modern province name",
+  "province": "Modern province name in English",
+  "provinceChinese": "现代省份名称（中文）",
   "city": "City name",
   "historicalFacts": ["Fact 1 in English", "Fact 2 in English"],
   "historicalFactsChinese": ["事实1", "事实2"],
-  "architecturalStyle": "Style description",
-  "significance": "Why this structure matters"
+  "architecturalStyle": "Style description in English",
+  "architecturalStyleChinese": "建筑风格（中文）",
+  "significance": "Why this structure matters in English",
+  "significanceChinese": "该建筑的历史意义（中文）"
 }
 
 If you cannot identify it, respond with:
 {
   "identified": false,
   "reason": "Brief explanation of why identification failed",
-  "suggestion": "Helpful suggestion for the user"
+  "reasonChinese": "无法识别的原因（中文）",
+  "suggestion": "Helpful suggestion for the user",
+  "suggestionChinese": "给用户的建议（中文）"
 }
 
 Important rules:

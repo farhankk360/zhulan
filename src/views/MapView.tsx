@@ -17,6 +17,7 @@ function buildTempStructure(result: IdentifySuccess): Structure {
     nameChinese: result.nameChinese,
     type: result.type,
     dynasty: result.dynasty,
+    dynastyChinese: result.dynastyChinese,
     yearBuilt: result.estimatedYear,
     yearCompleted: null,
     coordinates: result.coordinates,
@@ -27,8 +28,11 @@ function buildTempStructure(result: IdentifySuccess): Structure {
     source: "ai-identified",
     tags: [],
     description: result.significance,
+    descriptionChinese: result.significanceChinese,
     keyFeatures: result.historicalFacts,
+    keyFeaturesChinese: result.historicalFactsChinese,
     architecturalStyle: result.architecturalStyle,
+    architecturalStyleChinese: result.architecturalStyleChinese,
   }
 }
 
@@ -63,6 +67,7 @@ export default function MapView() {
     selectedId,
     setSelectedId,
     selected,
+    addSessionStructure,
   } = useStructures()
   const { t } = useLanguage()
   const [filtersOpen, setFiltersOpen] = useState(false)
@@ -70,11 +75,8 @@ export default function MapView() {
   // Scan & Discover state
   const [scanOpen, setScanOpen] = useState(false)
   const [isIdentifying, setIsIdentifying] = useState(false)
-  const [identifyResult, setIdentifyResult] = useState<IdentifyResponse | null>(
-    null,
-  )
+  const [identifyResult, setIdentifyResult] = useState<IdentifyResponse | null>(null)
   const [userPhoto, setUserPhoto] = useState<string | null>(null)
-  const [aiStructure, setAiStructure] = useState<Structure | null>(null)
   const [flyToTarget, setFlyToTarget] = useState<[number, number] | undefined>()
   const [scanError, setScanError] = useState<string | null>(null)
 
@@ -91,14 +93,12 @@ export default function MapView() {
         if (result.identified) {
           const match = matchInDataset(result, allStructures)
           if (match) {
-            setSelectedId(match.id)
             setFlyToTarget([...match.coordinates])
-            setAiStructure(null)
           } else {
             const temp = buildTempStructure(result)
-            setAiStructure(temp)
-            setSelectedId(temp.id)
+            addSessionStructure(temp)
             setFlyToTarget([...result.coordinates])
+            // Don't auto-select — let user close result panel and click the pin
           }
         }
       } catch (err) {
@@ -109,11 +109,12 @@ export default function MapView() {
         setIsIdentifying(false)
       }
     },
-    [allStructures, setSelectedId, t],
+    [allStructures, addSessionStructure, t],
   )
 
   function handleViewOnMap() {
     setIdentifyResult(null)
+    setSelectedId(null)
   }
 
   function handleRetry() {
@@ -121,8 +122,7 @@ export default function MapView() {
     setScanOpen(true)
   }
 
-  const selectedStructure =
-    selected ?? (aiStructure?.id === selectedId ? aiStructure : null)
+  const selectedStructure = selected
 
   return (
     <div className="relative flex h-full">
@@ -132,7 +132,6 @@ export default function MapView() {
           selectedId={selectedId}
           onSelect={setSelectedId}
           flyToTarget={flyToTarget}
-          extraStructures={aiStructure ? [aiStructure] : []}
         />
 
         <button
@@ -166,10 +165,7 @@ export default function MapView() {
       {selectedStructure && (
         <InfoPanel
           structure={selectedStructure}
-          onClose={() => {
-            setSelectedId(null)
-            setAiStructure(null)
-          }}
+          onClose={() => setSelectedId(null)}
         />
       )}
 
