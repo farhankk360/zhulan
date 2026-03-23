@@ -78,12 +78,18 @@ npm run fetch-data && npm run deploy
 │   │   └── AboutView.tsx       ← project info and AI tools used
 │   ├── services/
 │   │   └── qwenVL.ts           ← Dashscope API client for Qwen-VL image recognition
-│   ├── hooks/                  ← custom React hooks
+│   ├── hooks/                  ← custom React hooks (useStructures, useLanguage, …)
+│   ├── i18n/
+│   │   ├── translations.ts     ← all UI strings in zh + en (single source of truth)
+│   │   └── languageContext.ts  ← context type definition
+│   ├── contexts/
+│   │   └── LanguageContext.tsx ← LanguageProvider, persists to localStorage
 │   ├── types/                  ← TypeScript interfaces (Structure, Dynasty, etc.)
 │   ├── utils/                  ← helper functions (date formatting, filters, etc.)
 │   ├── App.tsx
 │   └── main.tsx
 ├── public/
+│   ├── favicon.svg             ← SVG favicon (traditional Chinese hall silhouette)
 │   └── images/                 ← AI-generated illustrations for curated entries
 ├── CLAUDE.md                   ← this file
 ├── package.json
@@ -123,7 +129,13 @@ The fetch script queries `https://query.wikidata.org/sparql` for items that:
 - Are instances/subclasses of: palace (Q16560), bridge (Q12280), residential building (Q11755880), or government building (Q16831714)
 - Have coordinate location (P625)
 - Have inception date (P571) before 1911
-- Retrieve: label (en + zh), description, coordinates, inception, image (P18)
+- Retrieve: label (en + zh), description (en + zh), coordinates, inception, image (P18)
+
+After fetching, the script calls Qwen-Turbo (via Dashscope) in a **single batch request** to
+translate any entries still missing a Chinese description. The same batch pass also translates
+curated entry fields (`architect`, `architecturalStyle`, `keyFeatures`, `materials`) that lack
+Chinese equivalents. This requires `VITE_DASHSCOPE_KEY` to be set; if missing, translation is
+skipped with a warning and the UI falls back to English.
 
 ### Data schema
 See `/src/types/index.ts` for full TypeScript interfaces.
@@ -134,6 +146,7 @@ Key fields for all structures:
 - `nameChinese` — Chinese name (中文名)
 - `type` — one of: `"palace"` | `"residence"` | `"government"` | `"bridge"`
 - `dynasty` — dynasty name in English (must match dynasties.json), or `"Unknown"`
+- `dynastyChinese` — Chinese dynasty name (optional; populated for ai-identified entries)
 - `yearBuilt` — approximate year (negative = BCE)
 - `coordinates` — `[latitude, longitude]`
 - `source` — `"curated"` | `"wikidata"` | `"ai-identified"` (temporary, from Scan & Discover)
@@ -142,14 +155,17 @@ Key fields for all structures:
 
 Additional fields for curated entries only:
 - `description` / `descriptionChinese` — detailed text
-- `architect` — builder/designer
-- `keyFeatures` — array of notable characteristics
-- `architecturalStyle` — style classification
-- `materials` — construction materials
+- `architect` / `architectChinese` — builder/designer
+- `keyFeatures` / `keyFeaturesChinese` — array of notable characteristics
+- `architecturalStyle` / `architecturalStyleChinese` — style classification
+- `materials` / `materialsChinese` — construction materials
 - `image` — path to AI-generated illustration
 - `imageCredit` — AI tool used for image generation
 - `sources` — academic/historical sources
 - `aiToolsUsed` — which approved AI tools helped research
+
+Chinese variants for curated fields are populated at build time by Qwen-Turbo (see fetch script).
+Do not manually add `*Chinese` fields to `curated.json` — they will be overwritten on next fetch.
 
 Additional fields for Wikidata entries:
 - `wikidataId` — Wikidata Q-number (e.g., "Q215380")
@@ -176,14 +192,16 @@ This feature is the primary demonstration of "AI tool mastery" for competition j
 3. Image is captured/selected → show preview with "Identify" button
 4. User taps "Identify" → loading state with animation
 5. Image is sent to Qwen-VL via Dashscope API
-6. API returns structured JSON with identification results
+6. API returns structured JSON with identification results (fully bilingual)
 7. App processes the result:
-   a. If structure exists in our dataset → fly to it on map, open its info panel
-   b. If structure is recognized but NOT in dataset → create temporary pin on map,
-      show AI-generated info card with historical facts
+   a. If structure exists in our dataset → fly to its location on map
+   b. If structure is recognized but NOT in dataset → add as session structure,
+      fly to its location, render a purple marker with permanent name label
    c. If structure is not recognized → show friendly "not recognized" message
-      with suggestion to try another angle or a different structure
-8. Result card shows: name (en/zh), dynasty, type, historical facts, confidence
+8. Result card shows: name, dynasty, type, significance, historical facts
+   (all fields in active language — zh or en — with no mixed-language content)
+9. User taps "View on Map" → result card closes, map is visible with the pin.
+   User clicks the pin to open the InfoPanel with full details.
 ```
 
 ### Dashscope API Integration
@@ -236,27 +254,27 @@ If you can identify the structure, respond with:
   "nameChinese": "中文名",
   "type": "palace" | "bridge" | "residence" | "government",
   "dynasty": "Dynasty name in English",
+  "dynastyChinese": "朝代名称（中文）",
   "estimatedYear": 1420,
   "coordinates": [latitude, longitude],
-  "province": "Modern province name",
+  "province": "Modern province name in English",
+  "provinceChinese": "现代省份名称（中文）",
   "city": "City name",
-  "historicalFacts": [
-    "Fact 1 in English",
-    "Fact 2 in English"
-  ],
-  "historicalFactsChinese": [
-    "事实1",
-    "事实2"
-  ],
-  "architecturalStyle": "Style description",
-  "significance": "Why this structure matters"
+  "historicalFacts": ["Fact 1 in English", "Fact 2 in English"],
+  "historicalFactsChinese": ["事实1", "事实2"],
+  "architecturalStyle": "Style description in English",
+  "architecturalStyleChinese": "建筑风格（中文）",
+  "significance": "Why this structure matters in English",
+  "significanceChinese": "该建筑的历史意义（中文）"
 }
 
 If you cannot identify it, respond with:
 {
   "identified": false,
   "reason": "Brief explanation of why identification failed",
-  "suggestion": "Helpful suggestion for the user"
+  "reasonChinese": "无法识别的原因（中文）",
+  "suggestion": "Helpful suggestion for the user",
+  "suggestionChinese": "给用户的建议（中文）"
 }
 
 Important rules:
@@ -268,16 +286,18 @@ Important rules:
 ```
 
 ### Matching against the dataset
-After receiving the API response, the app should attempt to match the identified structure
-against the existing dataset (structures.json):
+After receiving the API response, the app attempts to match against the full structure pool
+(base dataset + any structures added this session):
 
-1. **Name match:** Compare `name` or `nameChinese` against all entries (fuzzy match)
+1. **Name match:** Compare `name` or `nameChinese` against all entries
 2. **Coordinate match:** If name doesn't match, check if coordinates are within ~0.05°
    (~5km) of any existing entry
-3. **If matched:** Fly to the existing entry, highlight it, open its full info panel
-4. **If not matched:** Create a temporary `Structure` object from the AI response with
-   `source: "ai-identified"`, add it as a temporary marker on the map, show the
-   AI-generated info card
+3. **If matched:** Fly to the existing entry on the map
+4. **If not matched:** Build a `Structure` object from the API response with
+   `source: "ai-identified"` and add it to `useStructures` session state via
+   `addSessionStructure()`. It persists for the whole session (survives InfoPanel
+   open/close), renders as a **purple marker** (`#9333EA`) with a permanent floating
+   name label so the user can find it after dismissing the result card.
 
 ### Component structure
 
@@ -358,6 +378,7 @@ regarding map compliance with PRC standards.
 - residence → amber `#D97706`
 - government → blue `#2563EB`
 - bridge → teal `#0D9488`
+- ai-identified → purple `#9333EA` (ring: `#C084FC`, permanent name tooltip)
 
 ### Important: API key handling
 Store API keys in a `.env` file (see `env.example` for template):
@@ -383,11 +404,18 @@ alert (~$1) on the Dashscope dashboard to avoid surprises.
 - No inline styles — use Tailwind utility classes only
 - All map markers must use the `Structure` type from `/src/types/index.ts`
 - D3 charts must be wrapped in React components using `useRef` + `useEffect` pattern
-- All text visible to users must support both English and Chinese (use `name` and `nameChinese` fields)
-- Curated vs Wikidata vs AI-identified entries should render differently:
-  - Curated: full detail panel with description, features, image
+- All text visible to users must be language-aware. The rule: show **only** the active
+  language — never mix Chinese and English in the same field. Pattern:
+  `lang === 'zh' ? field.chinese : field.english`
+  Never use a cross-language fallback in the UI; fix missing data at the data layer instead.
+- All UI strings live in `src/i18n/translations.ts`. Never hardcode user-visible text
+  in components. Never define translatable data (arrays, objects) at module level —
+  define them inside the component where `t()` is available.
+- Curated vs Wikidata vs AI-identified entries render differently:
+  - Curated: full detail panel with description, features, image (all bilingual)
   - Wikidata: compact info card with name, type, date, link to Wikipedia
-  - AI-identified: temporary marker with AI-generated facts, "confidence" badge, no persistence
+  - AI-identified: purple marker with permanent label, session-persistent, full bilingual
+    info panel using fields returned directly from Qwen-VL
 
 ---
 
@@ -412,20 +440,20 @@ Document ALL AI usage in the submission form (附件4).
 
 | Layer | AI Tool | What it does | Files involved |
 |---|---|---|---|
-| Data research | DeepSeek | Historical research, Chinese text, architectural descriptions | `curated.json` |
-| Data research | Kimi | Literature review, fact checking, long-document analysis | `curated.json` |
-| Image assets | Tongyi (image gen) | AI-generated structure illustrations | `/public/images/` |
-| **Runtime feature** | **Tongyi Qwen-VL (via Dashscope API)** | **Photo recognition → identify structure → map + history** | `src/services/qwenVL.ts` |
+| **Runtime — live in app** | **Tongyi Qwen-VL-Max** | **Photo recognition → identify structure → bilingual map + history** | `src/services/qwenVL.ts` |
+| Build-time — translation | Tongyi Qwen-Turbo | Batch-translate missing Chinese descriptions + curated fields | `scripts/fetch-wikidata.ts` |
 | Data pipeline | Wikidata SPARQL | Bulk fetch architectural data with coordinates | `scripts/fetch-wikidata.ts` |
+| Content research | DeepSeek | Historical research, Chinese text, architectural descriptions | `curated.json` |
+| Content research | Kimi | Literature review, fact checking, long-document analysis | `curated.json` |
+| Image assets | Tongyi (image gen) | AI-generated structure illustrations | `/public/images/` |
 
 ### Key point for defence presentation
-The judges score "ability to wield and combine AI tools to solve real problems."
-The Scan & Discover (筑览识图) feature is the primary demonstration of this — a user
-photographs a real building and the app uses Tongyi Qwen-VL to identify it, locate it
-on the map, and present historical context. This is AI integrated into the product,
-not just used in the design process.
+Judges score "ability to wield and combine AI tools to solve real problems."
+ZhuLan uses AI at two distinct layers — **runtime** (Qwen-VL-Max identifies structures
+live from a photo) and **build-time** (Qwen-Turbo fills bilingual data gaps). This
+demonstrates AI as a core product capability, not just a design-process aid.
 
-All AI tool usage must be declared in the competition registration form.
+All AI tool usage must be declared in the competition registration form (附件4).
 
 ---
 
@@ -459,7 +487,7 @@ export default defineConfig({
     "gh-pages": "^6.0.0"
   },
   "scripts": {
-    "fetch-data": "tsx scripts/fetch-wikidata.ts",
+    "fetch-data": "tsx --env-file .env scripts/fetch-wikidata.ts",
     "prebuild": "npm run fetch-data && npm run lint && npm run typecheck",
     "deploy": "npm run build && gh-pages -d dist"
   }
@@ -508,3 +536,12 @@ Never use BrowserRouter — it breaks on refresh on GitHub Pages.
   (privacy + cost control)
 - Qwen-VL may hallucinate coordinates for lesser-known structures — always show
   confidence level and let user know AI results may not be 100% accurate
+- Never define translatable arrays/objects at module level — they can't call `t()`.
+  Define them inside the component body instead
+- Do not add a UI fallback that shows English when Chinese is missing — fix the data
+  instead (run `npm run fetch-data` with `VITE_DASHSCOPE_KEY` set to trigger translation)
+- The fetch script uses `process.env` (Node.js), not `import.meta.env` (Vite browser).
+  The `--env-file .env` flag in the `fetch-data` script loads `.env` into `process.env`
+  automatically — no `dotenv` package needed (requires Node 20.6+)
+- `useStructures` has an `addSessionStructure` function — use it to add AI-identified
+  structures to the live session. Do not manage a separate `aiStructure` state in MapView

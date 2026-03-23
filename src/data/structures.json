@@ -53,7 +53,7 @@
     "keyFeaturesChinese": [
       "9999间房间（象征接近10000间）",
       "严格的南北轴线对称",
-      "黄色釉面屋顶瓦片专供皇室使用",
+      "黄色釉面瓦专供皇室使用",
       "护城河和10米高的城墙用于防御"
     ],
     "materialsChinese": [
@@ -113,7 +113,7 @@
     "architectChinese": "由乾隆皇帝下令建造",
     "architecturalStyleChinese": "古典中国园林",
     "keyFeaturesChinese": [
-      "728米长的长廊，有14000幅绘画",
+      "728米长廊，有14000幅绘画",
       "石船",
       "十七孔桥",
       "昆明湖占公园面积的75%"
@@ -172,7 +172,7 @@
       "oldest"
     ],
     "architectChinese": "李春",
-    "architecturalStyleChinese": "分段拱桥",
+    "architecturalStyleChinese": "折拱桥",
     "keyFeaturesChinese": [
       "单个主拱跨度37.37米",
       "拱肩上有四个小型浮雕拱",
@@ -412,7 +412,7 @@
     "wikimediaImage": "https://commons.wikimedia.org/wiki/Special:FilePath/Waibaidu%20Bridge%20Shanghai.jpg",
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Waibaidu_Bridge",
     "description": "bridge in Shanghai, China",
-    "descriptionChinese": "中国上海的桥梁",
+    "descriptionChinese": "中国上海市的桥梁",
     "tags": []
   },
   {
@@ -461,28 +461,6 @@
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Mandarin%27s_House",
     "description": "building in Macau",
     "descriptionChinese": "中国澳门的建筑",
-    "tags": []
-  },
-  {
-    "id": "wikidata-Q10038732",
-    "name": "Taiji Palace",
-    "nameChinese": "太极宫",
-    "type": "palace",
-    "dynasty": "Sui",
-    "yearBuilt": 583,
-    "yearCompleted": null,
-    "coordinates": [
-      34.27888889,
-      108.93888889
-    ],
-    "province": "",
-    "city": "",
-    "status": "complete",
-    "significance": "regional",
-    "source": "wikidata",
-    "wikidataId": "Q10038732",
-    "description": "Chinese palace",
-    "descriptionChinese": "中国宫殿",
     "tags": []
   }
 ]

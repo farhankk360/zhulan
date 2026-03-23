@@ -115,6 +115,9 @@ export default function MapView() {
   function handleViewOnMap() {
     setIdentifyResult(null)
     setSelectedId(null)
+    // Re-trigger flyTo now that the overlay is gone.
+    // Creating a new array reference forces FlyToController's useEffect to fire again.
+    setFlyToTarget(t => (t ? ([...t] as [number, number]) : undefined))
   }
 
   function handleRetry() {
