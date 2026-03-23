@@ -11,7 +11,8 @@ An interactive web application for exploring China's pre-1911 architectural heri
 - **Interactive Map** — explore 50–100+ historical structures across China, filtered by type and dynasty, powered by Tianditu (天地图)
 - **Dynasty Timeline** — D3.js charts visualizing architectural output across Chinese history
 - **Rich Detail Panels** — curated entries with descriptions, key features, and AI-generated illustrations
-- **Scan & Discover (筑览识图)** — photograph or upload an image of a historical structure; Tongyi Qwen-VL identifies it, locates it on the map, and presents historical context
+- **Bilingual (EN / 中文)** — full Chinese/English toggle; all content, labels, and AI-returned data respects the active language
+- **Scan & Discover (筑览识图)** — photograph or upload an image of a historical structure; Tongyi Qwen-VL-Max identifies it and returns fully bilingual results (name, dynasty, province, significance, historical facts), locates it on the map, and adds it as a session pin
 
 ## Tech Stack
 
@@ -29,10 +30,11 @@ An interactive web application for exploring China's pre-1911 architectural heri
 
 | Purpose | Tool |
 |---|---|
+| **Runtime photo identification** | **Tongyi Qwen-VL-Max (Dashscope API)** |
+| **Build-time bilingual translation** | **Tongyi Qwen-Turbo (Dashscope API)** |
 | Historical research & Chinese text | DeepSeek |
 | Literature review & fact-checking | Kimi |
 | Structure illustrations | Tongyi (image generation) |
-| **Runtime photo identification** | **Tongyi Qwen-VL (Dashscope API)** |
 | Bulk architectural data | Wikidata SPARQL |
 
 ---
@@ -40,7 +42,7 @@ An interactive web application for exploring China's pre-1911 architectural heri
 ## Getting Started
 
 ### Prerequisites
-- Node.js 18+
+- Node.js 20.6+
 - npm
 
 ### Install
@@ -90,7 +92,7 @@ The dataset combines two tiers:
 - **Curated entries** (`src/data/curated.json`) — hand-researched featured structures with full descriptions, key features, and AI-generated illustrations
 - **Wikidata entries** — bulk-fetched via SPARQL at build time; provides 50–100+ data points for the map and charts
 
-Run `npm run fetch-data` to refresh Wikidata entries. The merged output is written to `src/data/structures.json` (committed to the repo).
+Run `npm run fetch-data` to refresh Wikidata entries. The script also calls Qwen-Turbo to batch-translate any missing Chinese descriptions and curated field values (architect, style, features, materials). Requires `VITE_DASHSCOPE_KEY` in `.env`; translation is skipped with a warning if the key is absent. The merged bilingual output is written to `src/data/structures.json` (committed to the repo).
 
 Structure types covered: **palace (皇宫)**, **residence (民居)**, **government building (官府)**, **bridge (桥梁)** — all pre-1911.
 
